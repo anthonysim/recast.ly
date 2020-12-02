@@ -9,12 +9,17 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      videoData: exampleVideoData
+      list: exampleVideoData,
+      current: ''
     };
   }
 
   render() {
-    let randomIndex = Math.floor(Math.random() * this.state.videoData.length);
+    const titleHandler = (event) => {
+      console.log('title has been clicked');
+    };
+
+    let randomIndex = Math.floor(Math.random() * this.state.list.length);
 
     return (
       <div>
@@ -25,10 +30,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.videoData[randomIndex]} />
+            <VideoPlayer video={this.state.list[randomIndex]} />
           </div>
           <div className="col-md-5">
-            <VideoList videos={this.state.videoData} />
+            <VideoList titleHandler={titleHandler} videos={this.state.list} />
           </div>
         </div>
       </div>
