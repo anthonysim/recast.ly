@@ -10,23 +10,25 @@ class App extends React.Component {
     super();
     this.state = {
       list: exampleVideoData,
-      current: ''
+      current: exampleVideoData[0]
     };
     this.titleHandler = this.titleHandler.bind(this);
+
   }
 
-
+  // click title and the video on the left updates to the one selected!
 
   titleHandler (event) {
-    // console.log(event.target.innerText);
-    this.setState({ current: event.target.innerText });
+    let clickedTitle = event.target.innerText;
 
+    let clickedVideo = this.state.list.filter(video => {
+      return video.snippet.title === clickedTitle;
+    });
 
+    this.setState({ current: clickedVideo[0] });
   }
 
   render() {
-
-    let randomIndex = Math.floor(Math.random() * this.state.list.length);
 
     return (
       <div>
@@ -39,7 +41,7 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.list[randomIndex]} />
+            <VideoPlayer video={this.state.current} />
           </div>
           <div className="col-md-5">
             <VideoList titleHandler={this.titleHandler} videos={this.state.list} />
