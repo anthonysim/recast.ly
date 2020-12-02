@@ -14,9 +14,6 @@ class App extends React.Component {
   }
 
   render() {
-
-
-
     return (
       <div>
         <nav className="navbar">
@@ -29,7 +26,9 @@ class App extends React.Component {
             <div><h5><em>videoPlayer</em> view goes here</h5></div>
           </div>
           <div className="col-md-5">
-            <div><h5><em>videoList</em> view goes here</h5></div>
+            <div>
+              <VideoList videos={this.state.videoData} />
+            </div>
           </div>
         </div>
       </div>
