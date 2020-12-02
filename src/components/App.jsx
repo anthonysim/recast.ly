@@ -13,7 +13,6 @@ class App extends React.Component {
       current: exampleVideoData[0]
     };
     this.titleHandler = this.titleHandler.bind(this);
-
   }
 
   // click title and the video on the left updates to the one selected!
