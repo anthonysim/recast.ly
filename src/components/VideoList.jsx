@@ -5,7 +5,11 @@ var VideoList = function (props) {
 
   return (
     <div className="video-list">
-      {props.videos.map(item => <VideoListEntry key={item.id.videoId} video={item} titleHandler={props.titleHandler}/>)}
+      {props.videos.map(item => <VideoListEntry
+        key={item.id.videoId}
+        video={item}
+        titleHandler={props.titleHandler}
+      />)}
     </div>
   );
 };

@@ -12,12 +12,19 @@ class App extends React.Component {
       list: exampleVideoData,
       current: ''
     };
+    this.titleHandler = this.titleHandler.bind(this);
+  }
+
+
+
+  titleHandler (event) {
+    // console.log(event.target.innerText);
+    this.setState({ current: event.target.innerText });
+
+
   }
 
   render() {
-    const titleHandler = (event) => {
-      console.log('title has been clicked');
-    };
 
     let randomIndex = Math.floor(Math.random() * this.state.list.length);
 
@@ -25,7 +32,9 @@ class App extends React.Component {
       <div>
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
-            <div><h5><em>search</em> view goes here</h5></div>
+            <div>
+              <Search />
+            </div>
           </div>
         </nav>
         <div className="row">
@@ -33,7 +42,7 @@ class App extends React.Component {
             <VideoPlayer video={this.state.list[randomIndex]} />
           </div>
           <div className="col-md-5">
-            <VideoList titleHandler={titleHandler} videos={this.state.list} />
+            <VideoList titleHandler={this.titleHandler} videos={this.state.list} />
           </div>
         </div>
       </div>
