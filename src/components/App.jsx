@@ -14,6 +14,8 @@ class App extends React.Component {
   }
 
   render() {
+    let randomIndex = Math.floor(Math.random() * this.state.videoData.length);
+
     return (
       <div>
         <nav className="navbar">
@@ -23,12 +25,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <div><h5><em>videoPlayer</em> view goes here</h5></div>
+            <VideoPlayer video={this.state.videoData[randomIndex]} />
           </div>
           <div className="col-md-5">
-            <div>
-              <VideoList videos={this.state.videoData} />
-            </div>
+            <VideoList videos={this.state.videoData} />
           </div>
         </div>
       </div>
