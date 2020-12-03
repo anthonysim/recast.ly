@@ -1,24 +1,52 @@
 import YOUTUBE_API_KEY from '../config/youtube.js';
 
-var searchYouTube = ({ key = YOUTUBE_API_KEY, query, max }, callback) => {
+var searchYouTube = ({ key = YOUTUBE_API_KEY, query, max = 5 }, callback) => {
+  console.log('key: ' + key);
+  console.log('query: ' + query);
+  console.log('max: ' + max);
 
-  $.ajax({
-    url: `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=${max}&q=${query}&key=${key}`,
+  // $.ajax({
+  //   url: `https://youtube.googleapis.com/youtube/v3/search?part=snippet&videoEmbeddable=true&maxResults=${max}&type=video&q=${query}&key=${key}`,
 
-    type: 'GET',
+  //   type: 'GET',
+  //   contentType: 'application/json',
+  //   success: function (data, callback) {
+  //     callback(data.items);
+  //   },
+  //   error: function (error) {
+  //     console.error('failed', error);
+  //   }
+  // });
 
-    contentType: 'application/json',
 
-    success: function (data, callback) {
-      console.log('Success! It worked!');
-      callback(data.items);
-    },
+  // $.get('https://youtube.googleapis.com/youtube/v3/search',
+  //   {
+  //     part: 'snippet',
+  //     type: 'video',
+  //     videoEmbeddable: true
+  //     key: key,
+  //     q: query,
+  //     maxResults: max,
+  //   })
+  //   .done(data => {
+  //     console.log('Success! It worked!');
+  // callback(data.items)
+  // })
+  //   .fail(error => console.log('failed', error));
 
-    error: function (error) {
-      console.error('Failed to fetch information', error);
-    }
-  });
+  fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&type=video&videoEmbeddable=true&key=${key}`)
+    .then(response => response.json())
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
 };
 
+
 export default searchYouTube;
+
+// curl \
+//   `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&type=video&videoEmbeddable=true&key=${key}` \
+//   --header 'Authorization: Bearer [YOUR_ACCESS_TOKEN]' \
+//   --header 'Accept: application/json' \
+//   --compressed
+
 

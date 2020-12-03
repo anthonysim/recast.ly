@@ -4,7 +4,7 @@ import VideoListEntry from './VideoListEntry.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import searchYouTube from '../lib/searchYouTube.js';
-
+// import { debounce } from 'lodash';
 
 class App extends React.Component {
   constructor() {
@@ -13,14 +13,15 @@ class App extends React.Component {
       list: exampleVideoData,
       current: exampleVideoData[0],
       options: {
-        max: 5,
         query: 'react',
       },
     };
     this.titleHandler = this.titleHandler.bind(this);
+    this.onChangeHandler = this.onChangeHandler.bind(this);
+    // this.delayedInput = this.delayedInput.bind(this);
   }
 
-  titleHandler (event) {
+  titleHandler(event) {
     let clickedTitle = event.target.innerText;
     let { list } = this.state;
 
@@ -31,9 +32,23 @@ class App extends React.Component {
     this.setState({ current: clickedVideo[0] });
   }
 
-  componentDidMount() {
-    searchYouTube(this.state.options, callback);
+  // delayedInput = debounce(query => {
+  //   () => console.log(query);
+  // }, 500)
+
+  onChangeHandler(event) {
+
+    let input = event.target.value;
+    console.log(input);
+    // this.delayedInput(input);
   }
+
+
+  componentDidMount() {
+    searchYouTube(this.state.options);
+
+  }
+
 
   render() {
 
@@ -42,7 +57,7 @@ class App extends React.Component {
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
             <div>
-              <Search />
+              <Search onChangeHandler={this.onChangeHandler} />
             </div>
           </div>
         </nav>
