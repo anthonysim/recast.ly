@@ -15,7 +15,6 @@ class App extends React.Component {
     this.titleHandler = this.titleHandler.bind(this);
   }
 
-  // click title and the video on the left updates to the one selected!
   titleHandler (event) {
     let clickedTitle = event.target.innerText;
     let { list } = this.state;
