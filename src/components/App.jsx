@@ -16,11 +16,11 @@ class App extends React.Component {
   }
 
   // click title and the video on the left updates to the one selected!
-
   titleHandler (event) {
     let clickedTitle = event.target.innerText;
+    let { list } = this.state;
 
-    let clickedVideo = this.state.list.filter(video => {
+    let clickedVideo = list.filter(video => {
       return video.snippet.title === clickedTitle;
     });
 
@@ -28,7 +28,6 @@ class App extends React.Component {
   }
 
   render() {
-
     return (
       <div>
         <nav className="navbar">
