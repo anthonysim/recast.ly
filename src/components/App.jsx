@@ -3,6 +3,7 @@ import VideoList from './VideoList.js';
 import VideoListEntry from './VideoListEntry.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
+import searchYouTube from '../lib/searchYouTube.js';
 
 
 class App extends React.Component {
@@ -10,7 +11,11 @@ class App extends React.Component {
     super();
     this.state = {
       list: exampleVideoData,
-      current: exampleVideoData[0]
+      current: exampleVideoData[0],
+      options: {
+        max: 5,
+        query: 'react',
+      },
     };
     this.titleHandler = this.titleHandler.bind(this);
   }
@@ -24,6 +29,10 @@ class App extends React.Component {
     });
 
     this.setState({ current: clickedVideo[0] });
+  }
+
+  componentDidMount() {
+    searchYouTube(this.state.options, callback);
   }
 
   render() {
