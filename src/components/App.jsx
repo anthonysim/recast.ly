@@ -5,7 +5,6 @@ import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import searchYouTube from '../lib/searchYouTube.js';
 import YOUTUBE_API_KEY from '../config/youtube.js';
-// import { debounce } from 'lodash';
 
 class App extends React.Component {
   constructor(props) {
@@ -25,18 +24,6 @@ class App extends React.Component {
   }
 
 
-  componentDidMount() {
-    searchYouTube(this.state.options, ( items ) => {
-      let firstVideo = items[0];
-
-      this.setState({
-        list: items,
-        current: firstVideo
-      });
-    });
-  }
-
-
   titleHandler(event) {
     let clickedTitle = event.target.innerText;
     let { list } = this.state;
@@ -48,14 +35,27 @@ class App extends React.Component {
     this.setState({ current: firstVideo });
   }
 
-  onChangeHandler(event) {
-    this.setState({
-      options: {
-        query: event.target.value
-      }
+
+  componentDidMount() {
+    searchYouTube(this.state.options, ( items ) => {
+      this.setState({
+        list: items,
+        current: items[0]
+      });
     });
-    console.log(event.target.value);
-    // this.search();
+  }
+
+  onChangeHandler(event) {
+    let options = {
+      query: event.target.value
+    };
+
+    searchYouTube(options, ( items ) => {
+      this.setState({
+        list: items,
+        current: items[0]
+      });
+    });
   }
 
   render() {
