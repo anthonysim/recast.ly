@@ -34,19 +34,17 @@ var searchYouTube = ({ key = YOUTUBE_API_KEY, query, max = 5 }, callback) => {
   // })
   //   .fail(error => console.log('failed', error));
 
-  fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&type=video&videoEmbeddable=true&key=${key}`)
+  // fetch(`https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&videoEmbeddable=true&key=${key}`)
+  //   .then(response => response.json())
+  //   .then(data => console.log(data.items))
+  //   .catch(err => console.log(err));
+
+  fetch('https://jsonplaceholder.typicode.com/todos/1')
     .then(response => response.json())
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
+    .then(data => console.log(data));
 };
 
 
 export default searchYouTube;
-
-// curl \
-//   `https://youtube.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&q=${query}&type=video&videoEmbeddable=true&key=${key}` \
-//   --header 'Authorization: Bearer [YOUR_ACCESS_TOKEN]' \
-//   --header 'Accept: application/json' \
-//   --compressed
 
 

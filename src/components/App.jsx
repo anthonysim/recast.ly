@@ -46,7 +46,6 @@ class App extends React.Component {
 
   componentDidMount() {
     searchYouTube(this.state.options);
-
   }
 
 
