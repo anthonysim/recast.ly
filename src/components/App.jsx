@@ -4,6 +4,7 @@ import VideoListEntry from './VideoListEntry.js';
 import VideoPlayer from './VideoPlayer.js';
 import exampleVideoData from '../data/exampleVideoData.js';
 import searchYouTube from '../lib/searchYouTube.js';
+import YOUTUBE_API_KEY from '../config/youtube.js';
 // import { debounce } from 'lodash';
 
 class App extends React.Component {
@@ -13,13 +14,23 @@ class App extends React.Component {
       list: exampleVideoData,
       current: exampleVideoData[0],
       options: {
-        query: 'react',
+        query: 'pizza',
+        key: YOUTUBE_API_KEY,
+        max: 5
       },
     };
     this.titleHandler = this.titleHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     // this.delayedInput = this.delayedInput.bind(this);
   }
+
+
+
+
+  componentDidMount() {
+    searchYouTube(this.state.options);
+  }
+
 
   titleHandler(event) {
     let clickedTitle = event.target.innerText;
@@ -43,10 +54,6 @@ class App extends React.Component {
     // this.delayedInput(input);
   }
 
-
-  componentDidMount() {
-    searchYouTube(this.state.options);
-  }
 
 
   render() {
