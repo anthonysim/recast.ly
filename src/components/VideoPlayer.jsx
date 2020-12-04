@@ -1,4 +1,5 @@
 var VideoPlayer = function (props) {
+
   let { title, description } = props.video.snippet;
 
   return (

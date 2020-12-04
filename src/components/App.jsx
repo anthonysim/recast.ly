@@ -10,7 +10,9 @@ import YOUTUBE_API_KEY from '../config/youtube.js';
 class App extends React.Component {
   constructor() {
     super();
+
     this.state = {
+      isLoading: true,
       list: exampleVideoData,
       current: exampleVideoData[0],
       options: {
@@ -19,18 +21,18 @@ class App extends React.Component {
         max: 5
       },
     };
-    this.search();
+
     this.titleHandler = this.titleHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
-    // this.delayedInput = this.delayedInput.bind(this);
   }
 
 
 
 
-  search() {
-    searchYouTube(this.state.options, ({items}) => {
+  componentDidMount() {
+    searchYouTube(this.state.options, ({ items }) => {
       this.setState({
+        isLoading: false,
         list: items,
         current: items[0]
       });
@@ -49,21 +51,12 @@ class App extends React.Component {
     this.setState({ current: clickedVideo[0] });
   }
 
-  // delayedInput = debounce(query => {
-  //   () => console.log(query);
-  // }, 500)
-
   onChangeHandler(event) {
-
     let input = event.target.value;
     console.log(input);
-    // this.delayedInput(input);
   }
 
-
-
   render() {
-
     return (
       <div>
         <nav className="navbar">
@@ -75,10 +68,12 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.current} />
+            {<h1>...loading</h1>
+              && <VideoPlayer video={this.state.current} />}
           </div>
           <div className="col-md-5">
-            <VideoList titleHandler={this.titleHandler} videos={this.state.list} />
+            {<h1>...loading</h1>
+              && <VideoList titleHandler={this.titleHandler} videos={this.state.list} />}
           </div>
         </div>
       </div>
