@@ -19,6 +19,7 @@ class App extends React.Component {
         max: 5
       },
     };
+    this.search();
     this.titleHandler = this.titleHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
     // this.delayedInput = this.delayedInput.bind(this);
@@ -27,8 +28,13 @@ class App extends React.Component {
 
 
 
-  componentDidMount() {
-    searchYouTube(this.state.options);
+  search() {
+    searchYouTube(this.state.options, ({items}) => {
+      this.setState({
+        list: items,
+        current: items[0]
+      });
+    });
   }
 
 
