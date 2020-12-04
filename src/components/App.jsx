@@ -12,7 +12,7 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      list: [],
+      list: exampleVideoData,
       current: exampleVideoData[0],
       options: {
         query: 'pizza',
@@ -20,14 +20,13 @@ class App extends React.Component {
         max: 5
       },
     };
-    this.search();
     this.titleHandler = this.titleHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
   }
 
 
-  search() {
-    searchYouTube(this.state.options, ({ items }) => {
+  componentDidMount() {
+    searchYouTube(this.state.options, ( items ) => {
       let firstVideo = items[0];
 
       this.setState({
@@ -55,7 +54,8 @@ class App extends React.Component {
         query: event.target.value
       }
     });
-    this.search();
+    console.log(event.target.value);
+    // this.search();
   }
 
   render() {
@@ -65,16 +65,16 @@ class App extends React.Component {
         <nav className="navbar">
           <div className="col-md-6 offset-md-3">
             <div>
-              <Search onChangeHandler={this.onChangeHandler} />
+              {this.state.list.length === 0 ? <h1>...loading</h1> : <Search onChangeHandler={this.onChangeHandler} />}
             </div>
           </div>
         </nav>
         <div className="row">
           <div className="col-md-7">
-            <VideoPlayer video={this.state.current} />
+            {this.state.list.length === 0 ? <h1>...loading</h1> : <VideoPlayer video={this.state.current} />}
           </div>
           <div className="col-md-5">
-            <VideoList titleHandler={this.titleHandler} videos={this.state.list} />
+            {this.state.list.length === 0 ? <h1>...loading</h1> : <VideoList titleHandler={this.titleHandler} videos={this.state.list} />}
           </div>
         </div>
       </div>
