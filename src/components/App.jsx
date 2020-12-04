@@ -8,12 +8,11 @@ import YOUTUBE_API_KEY from '../config/youtube.js';
 // import { debounce } from 'lodash';
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
-      isLoading: true,
-      list: exampleVideoData,
+      list: [],
       current: exampleVideoData[0],
       options: {
         query: 'pizza',
@@ -21,20 +20,19 @@ class App extends React.Component {
         max: 5
       },
     };
-
+    this.search();
     this.titleHandler = this.titleHandler.bind(this);
     this.onChangeHandler = this.onChangeHandler.bind(this);
   }
 
 
-
-
-  componentDidMount() {
+  search() {
     searchYouTube(this.state.options, ({ items }) => {
+      let firstVideo = items[0];
+
       this.setState({
-        isLoading: false,
         list: items,
-        current: items[0]
+        current: firstVideo
       });
     });
   }
@@ -47,16 +45,21 @@ class App extends React.Component {
     let clickedVideo = list.filter(video => {
       return video.snippet.title === clickedTitle;
     });
-
-    this.setState({ current: clickedVideo[0] });
+    let firstVideo = clickedVideo[0];
+    this.setState({ current: firstVideo });
   }
 
   onChangeHandler(event) {
-    let input = event.target.value;
-    console.log(input);
+    this.setState({
+      options: {
+        query: event.target.value
+      }
+    });
+    this.search();
   }
 
   render() {
+
     return (
       <div>
         <nav className="navbar">
@@ -68,12 +71,10 @@ class App extends React.Component {
         </nav>
         <div className="row">
           <div className="col-md-7">
-            {<h1>...loading</h1>
-              && <VideoPlayer video={this.state.current} />}
+            <VideoPlayer video={this.state.current} />
           </div>
           <div className="col-md-5">
-            {<h1>...loading</h1>
-              && <VideoList titleHandler={this.titleHandler} videos={this.state.list} />}
+            <VideoList titleHandler={this.titleHandler} videos={this.state.list} />
           </div>
         </div>
       </div>
