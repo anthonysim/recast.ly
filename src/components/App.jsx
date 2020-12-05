@@ -38,7 +38,7 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    searchYouTube(this.state.options, ( items ) => {
+    this.props.searchYouTube(this.state.options, ( items ) => {
       this.setState({
         list: items,
         current: items[0]
@@ -51,7 +51,7 @@ class App extends React.Component {
     let options = {
       query: event.target.value
     };
-    searchYouTube(options, ( items ) => {
+    this.props.searchYouTube(options, ( items ) => {
       this.setState({
         list: items,
         current: items[0]
