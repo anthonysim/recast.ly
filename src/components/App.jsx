@@ -38,7 +38,7 @@ class App extends React.Component {
 
 
   componentDidMount() {
-    this.props.searchYouTube(this.state.options, ( items ) => {
+    searchYouTube(this.state.options, ( items ) => {
       this.setState({
         list: items,
         current: items[0]
@@ -51,7 +51,7 @@ class App extends React.Component {
     let options = {
       query: event.target.value
     };
-    this.props.searchYouTube(options, ( items ) => {
+    searchYouTube(options, ( items ) => {
       this.setState({
         list: items,
         current: items[0]
@@ -61,7 +61,6 @@ class App extends React.Component {
 
 
   render() {
-
     return (
       <div>
         <nav className="navbar">
